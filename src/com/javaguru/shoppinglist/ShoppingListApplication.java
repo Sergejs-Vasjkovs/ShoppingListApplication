@@ -1,22 +1,22 @@
 package com.javaguru.shoppinglist;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 class ShoppingListApplication {
 
     public static void main(String[] args) {
-        Map<Long, Product> productRepository = new HashMap<>();
-        Long productIdSequence = 0L;
+
+        ProductRepository productRepository = new ProductRepository();
+
         while (true) {
             Scanner scanner = new Scanner(System.in);
             try {
                 System.out.println("1. Create product");
                 System.out.println("2. Find product by id");
                 System.out.println("3. Exit");
-                Integer userInput = Integer.valueOf(scanner.nextLine());
+                int userInput = Integer.parseInt(scanner.nextLine());
+
                 switch (userInput) {
                     case 1:
                         System.out.println("Enter product name: ");
@@ -26,14 +26,12 @@ class ShoppingListApplication {
                         Product product = new Product();
                         product.setName(name);
                         product.setPrice(price);
-                        product.setId(productIdSequence);
-                        productRepository.put(productIdSequence, product);
-                        productIdSequence++;
-                        System.out.println("Result: " + product.getId());
+                        productRepository.addProduct(product);
+                        System.out.println("Result: " + product);
                     case 2:
                         System.out.println("Enter product id: ");
                         long id = scanner.nextLong();
-                        Product findProductResult = productRepository.get(id);
+                        Product findProductResult = productRepository.findProductById(id);
                         System.out.println(findProductResult);
                     case 3:
                         return;
