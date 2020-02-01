@@ -1,4 +1,4 @@
-package com.javaguru.shoppinglist;
+package com.javaguru.shoppinglist.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -10,7 +10,7 @@ public class Product {
     private BigDecimal price;
 
     private String category;
-    private int discount; // скидка будет в %
+    private int discount;
     private String description;
 
     public Long getId() {
