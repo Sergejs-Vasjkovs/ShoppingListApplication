@@ -20,7 +20,6 @@ public class userInterface {
 
             String userInput = scanner.nextLine();
 
-            // Руслан, что тут лучше if или case?
             if (userInput.equals("1")) {
                 createProduct();
             } else if (userInput.equals("2")) {

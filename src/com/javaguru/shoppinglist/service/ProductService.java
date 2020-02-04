@@ -10,15 +10,19 @@ public class ProductService {
     InMemoryRepository inMemoryRepository = new InMemoryRepository();
     ProductValidationService productValidationService = new ProductValidationService();
 
+
     public void createProduct(Product product) {
 
         try {
-            productValidationService.validate(product);
-            inMemoryRepository.addProduct(product);
+            if (!inMemoryRepository.ifProductExistByName(product.getName())) {
+                productValidationService.validate(product);
+                inMemoryRepository.addProduct(product);
+            } else {
+                throw new ProductValidationException("Product " + product.getName() + " already exist.");
+            }
         } catch (ProductValidationException ex) {
             ex.printStackTrace();
         }
-
     }
 
     public Product findProductByID(long id) {

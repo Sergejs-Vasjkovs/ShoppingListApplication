@@ -10,7 +10,7 @@ public class Product {
     private BigDecimal price;
 
     private String category;
-    private int discount;
+    private float discount;
     private String description;
 
     public Long getId() {
@@ -45,11 +45,11 @@ public class Product {
         this.category = category;
     }
 
-    public int getDiscount() {
+    public float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(float discount) {
         this.discount = discount;
     }
 
@@ -66,11 +66,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return discount == product.discount &&
-                Objects.equals(id, product.id) &&
+        return Objects.equals(id, product.id) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(price, product.price) &&
                 Objects.equals(category, product.category) &&
+                Objects.equals(discount, product.discount) &&
                 Objects.equals(description, product.description);
     }
 

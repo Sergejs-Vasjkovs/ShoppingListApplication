@@ -2,17 +2,24 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class ProductValidationService {
 
-    public void validate(Product product) throws ProductValidationException {
-        if (product.getPrice().intValue() <= 0) {
-            throw new ProductValidationException("Product price must be more than 0.00 €");
-        }
-        if (product.getDiscount() > 100){
-            throw new ProductValidationException("Product discount cannot be more than 100%");
-        }
-        if (product.getName().length()>32 || product.getName().length() < 3){
-            throw new ProductValidationException("Product name minimum length is 8 characters, maximum is 32");
+    List<ProductValidationRule> validationRulesList = new LinkedList<>();
+
+    public void validateRules() {
+        validationRulesList.add(new ProductDiscountValidationRule());
+        validationRulesList.add(new ProductNameValidationRule());
+        validationRulesList.add(new ProductPriceValidationRule());
+    }
+
+    public void validate(Product product) {
+        validateRules();
+        for (ProductValidationRule rule : validationRulesList) {
+            rule.validate(product);
         }
     }
+
 }
