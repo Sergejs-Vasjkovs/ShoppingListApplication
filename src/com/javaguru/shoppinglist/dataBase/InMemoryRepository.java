@@ -23,17 +23,19 @@ public class InMemoryRepository {
             if (product.getName().equals(name)) {
                 return product;
             }
-        } return product;
+        }
+        return product;
     }
 
-    public boolean ifProductExistByName(String name){
+    public boolean ifProductExistByName(String name) {
         Product product;
         for (Map.Entry<Long, Product> entry : repository.entrySet()) {
             product = entry.getValue();
             if (product.getName().equals(name)) {
                 return true;
             }
-        } return false;
+        }
+        return false;
     }
 
     public Product findProductById(long id) {

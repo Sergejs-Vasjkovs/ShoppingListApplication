@@ -4,9 +4,10 @@ import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.ProductService;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
-public class userInterface {
+public class UserInterface {
 
     ProductService productService = new ProductService();
 
@@ -20,15 +21,19 @@ public class userInterface {
 
             String userInput = scanner.nextLine();
 
-            if (userInput.equals("1")) {
-                createProduct();
-            } else if (userInput.equals("2")) {
-                findProduct();
-            } else if (userInput.equals("3")) {
-                return;
-            } else {
-                System.err.println("Error! Enter: 1 - To create product, " +
-                        "2 - To find product by ID, 3 - For exit.");
+            switch (userInput) {
+                case "1":
+                    createProduct();
+                    break;
+                case "2":
+                    findProduct();
+                    break;
+                case "3":
+                    return;
+                default:
+                    System.err.println("Error! Enter: 1 - To create product, " +
+                            "2 - To find product by ID, 3 - For exit.");
+                    break;
             }
 
         }
@@ -43,10 +48,11 @@ public class userInterface {
 
         System.out.println("Enter product price: ");
         BigDecimal price = new BigDecimal(scanner.nextLine());
+        BigDecimal scaledPrice = price.setScale(2, RoundingMode.HALF_EVEN);
 
         Product product = new Product();
         product.setName(name);
-        product.setPrice(price);
+        product.setPrice(scaledPrice);
 
         productService.createProduct(product);
         System.out.println("Product ID: " + product.getId());
