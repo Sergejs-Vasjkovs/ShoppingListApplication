@@ -2,7 +2,7 @@ package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
 
-import static com.javaguru.shoppinglist.service.validation.ProductValidationConstants.*;
+import static com.javaguru.shoppinglist.domain.Product.*;
 
 public class ProductDiscountValidationRule implements ProductValidationRule {
 
@@ -14,7 +14,7 @@ public class ProductDiscountValidationRule implements ProductValidationRule {
         if (product.getDiscount() < MIN_DISCOUNT) {
             throw new ProductValidationException("Product discount cannot be less than" + MIN_DISCOUNT + " %");
         }
-        if (product.getPrice().compareTo(MIN_PRICE_TO_SET_DISCOUNT) < 0 && product.getDiscount() != MIN_DISCOUNT) {
+        if (product.getPrice().compareTo(MIN_PRICE_TO_SET_DISCOUNT) > -1 && product.getDiscount() != MIN_DISCOUNT) {
             throw new ProductValidationException("Discount for a product cheaper than "
                     + MIN_PRICE_TO_SET_DISCOUNT + "€ is not allowed");
         }

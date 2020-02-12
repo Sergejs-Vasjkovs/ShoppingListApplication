@@ -1,22 +1,21 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.dataBase.InMemoryRepository;
+import com.javaguru.shoppinglist.database.InMemoryRepository;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.validation.ProductValidationException;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 
 public class ProductService {
 
-    InMemoryRepository inMemoryRepository = new InMemoryRepository();
-    ProductValidationService productValidationService = new ProductValidationService();
+    private InMemoryRepository repository = new InMemoryRepository();
+    private ProductValidationService productValidationService = new ProductValidationService();
 
-
-    public void createProduct(Product product) {
+    public void addProduct(Product product) {
 
         try {
-            if (!inMemoryRepository.ifProductExistByName(product.getName())) {
+            if (!repository.ifProductExistByName(product.getName())) {
                 productValidationService.validate(product);
-                inMemoryRepository.addProduct(product);
+                repository.addProduct(product);
             } else {
                 throw new ProductValidationException("Product " + product.getName() + " already exist.");
             }
@@ -26,6 +25,10 @@ public class ProductService {
     }
 
     public Product findProductByID(long id) {
-        return inMemoryRepository.findProductById(id);
+        Product product = repository.findProductById(id);
+        if (product == null) {
+            throw new ProductValidationException("Product with ID " + id + " not exist!");
+        }
+        return product;
     }
 }

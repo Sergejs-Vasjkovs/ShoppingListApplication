@@ -1,10 +1,10 @@
 package com.javaguru.shoppinglist;
 
-import com.javaguru.shoppinglist.console.UserInterface;
+import com.javaguru.shoppinglist.console.UserInput;
 
 public class ShoppingListApplication {
     public static void main(String[] args) {
-        UserInterface userInterface = new UserInterface();
+        UserInput userInterface = new UserInput();
         userInterface.runApplication();
     }
 }

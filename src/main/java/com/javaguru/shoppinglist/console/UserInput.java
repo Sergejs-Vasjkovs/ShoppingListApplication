@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
 
-public class UserInterface {
+public class UserInput {
 
     ProductService productService = new ProductService();
 
@@ -20,20 +20,24 @@ public class UserInterface {
             System.out.println("3. Exit");
 
             String userInput = scanner.nextLine();
+            try {
+                switch (userInput) {
+                    case "1":
+                        createProduct();
+                        break;
+                    case "2":
+                        findProduct();
+                        break;
+                    case "3":
+                        return;
+                    default:
+                        System.err.println("Error! Enter: 1 - To create product, " +
+                                "2 - To find product by ID, 3 - For exit.");
+                        break;
+                }
 
-            switch (userInput) {
-                case "1":
-                    createProduct();
-                    break;
-                case "2":
-                    findProduct();
-                    break;
-                case "3":
-                    return;
-                default:
-                    System.err.println("Error! Enter: 1 - To create product, " +
-                            "2 - To find product by ID, 3 - For exit.");
-                    break;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
@@ -54,7 +58,7 @@ public class UserInterface {
         product.setName(name);
         product.setPrice(scaledPrice);
 
-        productService.createProduct(product);
+        productService.addProduct(product);
         System.out.println("Product ID: " + product.getId());
     }
 
@@ -62,7 +66,7 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter product id: ");
-        long id = scanner.nextLong();
+        long id = Long.parseLong(scanner.nextLine());
 
         System.out.println(productService.findProductByID(id));
     }

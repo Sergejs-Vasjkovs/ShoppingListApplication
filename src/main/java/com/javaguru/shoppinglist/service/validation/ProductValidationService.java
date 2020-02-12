@@ -7,16 +7,16 @@ import java.util.List;
 
 public class ProductValidationService {
 
-    List<ProductValidationRule> validationRulesList = new LinkedList<>();
-
-    public void validateRules() {
+    public List<ProductValidationRule> getValidationRulesList() {
+        List<ProductValidationRule> validationRulesList = new LinkedList<>();
         validationRulesList.add(new ProductDiscountValidationRule());
         validationRulesList.add(new ProductNameValidationRule());
         validationRulesList.add(new ProductPriceValidationRule());
+        return validationRulesList;
     }
 
     public void validate(Product product) {
-        validateRules();
+        List<ProductValidationRule> validationRulesList = getValidationRulesList();
         for (ProductValidationRule rule : validationRulesList) {
             rule.validate(product);
         }
