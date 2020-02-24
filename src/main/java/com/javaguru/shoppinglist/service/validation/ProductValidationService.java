@@ -1,25 +1,22 @@
 package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
 import java.util.List;
 
+@Component
 public class ProductValidationService {
 
-    public List<ProductValidationRule> getValidationRulesList() {
-        List<ProductValidationRule> validationRulesList = new LinkedList<>();
-        validationRulesList.add(new ProductDiscountValidationRule());
-        validationRulesList.add(new ProductNameValidationRule());
-        validationRulesList.add(new ProductPriceValidationRule());
-        return validationRulesList;
+    private final List<ProductValidationRule> validationRules;
+
+    @Autowired
+    public ProductValidationService(List<ProductValidationRule> validationRules) {
+        this.validationRules = validationRules;
     }
 
     public void validate(Product product) {
-        List<ProductValidationRule> validationRulesList = getValidationRulesList();
-        for (ProductValidationRule rule : validationRulesList) {
-            rule.validate(product);
-        }
+        validationRules.forEach(rule -> rule.validate(product));
     }
-
 }

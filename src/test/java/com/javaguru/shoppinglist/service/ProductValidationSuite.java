@@ -1,9 +1,6 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.service.validation.ProductDiscountValidationRuleTest;
-import com.javaguru.shoppinglist.service.validation.ProductNameValidationRuleTest;
-import com.javaguru.shoppinglist.service.validation.ProductPriceValidationRuleTest;
-import com.javaguru.shoppinglist.service.validation.ProductValidationServiceTest;
+import com.javaguru.shoppinglist.service.validation.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -11,8 +8,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({ProductDiscountValidationRuleTest.class,
         ProductNameValidationRuleTest.class,
         ProductPriceValidationRuleTest.class,
-        ProductValidationServiceTest.class
-})
+        ProductUniqueNameValidationRuleTest.class,
+        ProductValidationServiceTest.class,
+        ProductServiceTest.class
+        })
 
 public class ProductValidationSuite {
 

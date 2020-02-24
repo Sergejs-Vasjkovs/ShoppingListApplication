@@ -4,24 +4,24 @@ import com.javaguru.shoppinglist.database.InMemoryRepository;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.validation.ProductValidationException;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductService {
 
-    private InMemoryRepository repository = new InMemoryRepository();
-    private ProductValidationService productValidationService = new ProductValidationService();
+    private final InMemoryRepository repository;
+    private final ProductValidationService productValidationService;
 
-    public void addProduct(Product product) {
+    @Autowired
+    public ProductService(InMemoryRepository repository, ProductValidationService productValidationService) {
+        this.repository = repository;
+        this.productValidationService = productValidationService;
+    }
 
-        try {
-            if (!repository.ifProductExistByName(product.getName())) {
-                productValidationService.validate(product);
-                repository.addProduct(product);
-            } else {
-                throw new ProductValidationException("Product " + product.getName() + " already exist.");
-            }
-        } catch (ProductValidationException ex) {
-            ex.printStackTrace();
-        }
+    public void createProduct(Product product) {
+        productValidationService.validate(product);
+        repository.insert(product);
     }
 
     public Product findProductByID(long id) {
