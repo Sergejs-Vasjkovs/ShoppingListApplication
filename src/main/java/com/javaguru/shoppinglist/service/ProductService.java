@@ -31,4 +31,12 @@ public class ProductService {
         }
         return product;
     }
+
+    public Product findProductByName (String name){
+        Product product = repository.findProductByName(name);
+        if (product == null) {
+            throw new ProductValidationException("Product " + name + " not exist!");
+        }
+        return product;
+    }
 }

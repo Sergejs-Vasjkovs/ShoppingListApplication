@@ -1,25 +1,23 @@
-package com.javaguru.shoppinglist.console;
+package com.javaguru.shoppinglist.console.findproduct;
 
 import com.javaguru.shoppinglist.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 @Component
-@Order(2)
-public class FindProduct implements UserMenu {
+public class FindProductById implements FindMenu {
 
     private ProductService productService;
 
     @Autowired
-    public FindProduct(ProductService productService) {
+    public FindProductById(ProductService productService) {
         this.productService = productService;
     }
 
     @Override
-    public void InputMenu() {
+    public void findMenu() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter product id: ");
@@ -30,6 +28,6 @@ public class FindProduct implements UserMenu {
 
     @Override
     public String toString() {
-        return " FindProduct:";
+        return " Find product by ID:";
     }
 }

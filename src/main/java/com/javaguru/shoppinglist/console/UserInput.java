@@ -1,6 +1,7 @@
 package com.javaguru.shoppinglist.console;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,8 +13,7 @@ public class UserInput {
     private final List<UserMenu> menuList;
 
     @Autowired
-//    public UserInput(@Qualifier("menuInOrder") List<UserMenu> menuList) {
-    public UserInput(List<UserMenu> menuList) {
+    public UserInput(@Qualifier("menuInOrder") List<UserMenu> menuList) {
         this.menuList = menuList;
     }
 
@@ -26,7 +26,7 @@ public class UserInput {
                     System.out.println(i + 1 + userMenu.toString());
                 }
                 int userInput = scanner.nextInt();
-                menuList.get(userInput - 1).InputMenu();
+                menuList.get(userInput - 1).inputMenu();
             } catch (Exception e) {
                 e.printStackTrace();
             }

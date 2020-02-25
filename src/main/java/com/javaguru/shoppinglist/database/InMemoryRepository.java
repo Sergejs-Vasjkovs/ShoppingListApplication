@@ -20,14 +20,13 @@ public class InMemoryRepository {
     }
 
     public Product findProductByName(String name) {
-        Product product = null;
         for (Map.Entry<Long, Product> entry : inMemoryRepository.entrySet()) {
-            product = entry.getValue();
+            Product product = entry.getValue();
             if (product.getName().equals(name)) {
                 return product;
             }
         }
-        return product;
+        return null;
     }
 
     public boolean ifProductExistByName(String name) {
