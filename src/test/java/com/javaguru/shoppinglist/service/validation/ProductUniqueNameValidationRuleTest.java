@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service.validation;
 
-import com.javaguru.shoppinglist.database.InMemoryRepository;
+import com.javaguru.shoppinglist.database.HibernateRepository;
 import com.javaguru.shoppinglist.domain.Product;
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,7 +20,7 @@ public class ProductUniqueNameValidationRuleTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Mock
-    InMemoryRepository inMemoryRepository;
+    HibernateRepository inMemoryRepository;
 
     @InjectMocks
     ProductUniqueNameValidationRule victim;

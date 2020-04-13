@@ -3,7 +3,7 @@ package com.javaguru.shoppinglist.service.validation;
 import com.javaguru.shoppinglist.domain.Product;
 import org.springframework.stereotype.Component;
 
-import static com.javaguru.shoppinglist.domain.Product.*;
+import static com.javaguru.shoppinglist.domain.ProductStaticValues.*;
 
 @Component
 public class ProductPriceValidationRule implements ProductValidationRule {

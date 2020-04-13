@@ -1,25 +1,31 @@
 package com.javaguru.shoppinglist.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "products")
 public class Product {
 
-    public static final float MAX_DISCOUNT = 100;
-    public static final float MIN_DISCOUNT = 0;
-
-    public static final BigDecimal MIN_PRICE = new BigDecimal("0.00");
-    public static final BigDecimal MIN_PRICE_TO_SET_DISCOUNT = new BigDecimal("20.00");
-
-    public static final int MIN_NAME_LENGTH = 3;
-    public static final int MAX_NAME_LENGTH = 32;
-
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name", unique = true)
     private String name;
+
+    @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "category")
     private String category;
+
+    @Column(name = "discount")
     private float discount;
+
+    @Column(name = "description")
     private String description;
 
     public Long getId() {

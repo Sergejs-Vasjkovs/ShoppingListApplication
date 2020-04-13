@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.database.InMemoryRepository;
+import com.javaguru.shoppinglist.database.HibernateRepository;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.validation.ProductValidationException;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
@@ -16,10 +16,8 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ProductServiceTest {
 
-    @Spy
-    private InMemoryRepository spyRepository = new InMemoryRepository();
     @Mock
-    private InMemoryRepository repository;
+    private HibernateRepository repository;
     @Mock
     private ProductValidationService productValidationService;
 
@@ -67,10 +65,4 @@ public class ProductServiceTest {
                 .ifProductExistByName(expectedProduct.getName());
     }
 
-    @Test
-    public void addProduct_whenProductOk_shouldAddProduct_WithsSpy() {
-        spyRepository.insert(expectedProduct);
-        Long id = expectedProduct.getId();
-        assertEquals(expectedProduct, spyRepository.findProductById(id));
-    }
 }

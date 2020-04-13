@@ -1,6 +1,7 @@
-package com.javaguru.shoppinglist.console.findproduct;
+package com.javaguru.shoppinglist.console.editdeleteproduct;
 
 import com.javaguru.shoppinglist.console.MenuAction;
+import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Component;
 import java.util.Scanner;
 
 @Component
-public class FindProductById implements MenuAction {
+public class DeleteProduct implements MenuAction {
 
     private ProductService productService;
 
     @Autowired
-    public FindProductById(ProductService productService) {
+    public DeleteProduct(ProductService productService) {
         this.productService = productService;
     }
 
@@ -21,14 +22,20 @@ public class FindProductById implements MenuAction {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter product id: ");
+        System.out.println("Enter product ID to delete:");
         long id = Long.parseLong(scanner.nextLine());
 
-        System.out.println(productService.findProductByID(id));
+        Product product = productService.findProductByID(id);
+
+        System.out.println("Product: " + product.getName() + " with ID : " + product.getId()
+                + " was deleted from database");
+
+
+        productService.deleteProduct(product);
     }
 
     @Override
     public String toString() {
-        return " Find product by ID:";
+        return " Delete product by ID:";
     }
 }

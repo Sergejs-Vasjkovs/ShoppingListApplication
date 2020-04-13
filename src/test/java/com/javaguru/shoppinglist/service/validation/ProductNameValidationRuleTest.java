@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.javaguru.shoppinglist.domain.Product.*;
+import static com.javaguru.shoppinglist.domain.ProductStaticValues.*;
 
 public class ProductNameValidationRuleTest {
 
