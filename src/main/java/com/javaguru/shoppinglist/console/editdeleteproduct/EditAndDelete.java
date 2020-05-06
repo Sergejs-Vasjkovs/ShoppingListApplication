@@ -1,4 +1,4 @@
-package com.javaguru.shoppinglist.console.findproduct;
+package com.javaguru.shoppinglist.console.editdeleteproduct;
 
 import com.javaguru.shoppinglist.console.MenuAction;
 import com.javaguru.shoppinglist.console.ConsoleMenu;
@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class FindProduct implements MenuAction {
+public class EditAndDelete implements MenuAction {
 
-    private final List<MenuAction> findProductList;
+    private final List<MenuAction> editProduct;
 
     @Autowired
-    public FindProduct(@Lazy @Qualifier("findMenu") List<MenuAction> findProductList) {
-        this.findProductList = findProductList;
+    public EditAndDelete(@Lazy @Qualifier("EditProduct") List<MenuAction> EditProduct) {
+        this.editProduct = EditProduct;
     }
 
     @Override
@@ -25,12 +25,12 @@ public class FindProduct implements MenuAction {
 
         Scanner scanner = new Scanner(System.in);
 
-        ConsoleMenu.action(scanner, findProductList);
+        ConsoleMenu.action(scanner, editProduct);
     }
 
 
     @Override
     public String toString() {
-        return " Find product:";
+        return " Edit/Delete product:";
     }
 }

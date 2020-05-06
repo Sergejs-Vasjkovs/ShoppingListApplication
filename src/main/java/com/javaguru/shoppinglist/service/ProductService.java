@@ -1,20 +1,20 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.database.InMemoryRepository;
+import com.javaguru.shoppinglist.database.HibernateRepository;
 import com.javaguru.shoppinglist.domain.Product;
 import com.javaguru.shoppinglist.service.validation.ProductValidationException;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ProductService {
 
-    private final InMemoryRepository repository;
+    private final HibernateRepository repository;
     private final ProductValidationService productValidationService;
 
     @Autowired
-    public ProductService(InMemoryRepository repository, ProductValidationService productValidationService) {
+    public ProductService(HibernateRepository repository, ProductValidationService productValidationService) {
         this.repository = repository;
         this.productValidationService = productValidationService;
     }
@@ -32,11 +32,19 @@ public class ProductService {
         return product;
     }
 
-    public Product findProductByName (String name){
+    public Product findProductByName(String name) {
         Product product = repository.findProductByName(name);
         if (product == null) {
             throw new ProductValidationException("Product " + name + " not exist!");
         }
         return product;
+    }
+
+    public void updateProduct(Product product){
+        repository.update(product);
+    }
+
+    public void deleteProduct(Product product){
+        repository.delete(product);
     }
 }

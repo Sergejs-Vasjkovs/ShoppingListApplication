@@ -1,5 +1,6 @@
 package com.javaguru.shoppinglist.console.findproduct;
 
+import com.javaguru.shoppinglist.console.MenuAction;
 import com.javaguru.shoppinglist.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Scanner;
 
 @Component
-public class FindProductByName implements FindMenu {
+public class FindProductByName implements MenuAction {
 
     private ProductService productService;
 
@@ -17,7 +18,7 @@ public class FindProductByName implements FindMenu {
     }
 
     @Override
-    public void findMenu() {
+    public void execute() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter product name: ");

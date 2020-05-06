@@ -3,8 +3,7 @@ package com.javaguru.shoppinglist.service.validation;
 import com.javaguru.shoppinglist.domain.Product;
 import org.springframework.stereotype.Component;
 
-import static com.javaguru.shoppinglist.domain.Product.MAX_NAME_LENGTH;
-import static com.javaguru.shoppinglist.domain.Product.MIN_NAME_LENGTH;
+import static com.javaguru.shoppinglist.domain.ProductStaticValues.*;
 
 @Component
 public class ProductNameValidationRule implements ProductValidationRule {
