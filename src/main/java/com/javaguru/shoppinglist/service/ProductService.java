@@ -1,27 +1,31 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.database.HibernateRepository;
+import com.javaguru.shoppinglist.database.HibernateProductRepository;
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.service.validation.ProductValidationException;
-import com.javaguru.shoppinglist.service.validation.ProductValidationService;
+import com.javaguru.shoppinglist.service.validation.product.ProductValidationException;
+import com.javaguru.shoppinglist.service.validation.product.ProductValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ProductService {
 
-    private final HibernateRepository repository;
+    private final HibernateProductRepository repository;
     private final ProductValidationService productValidationService;
 
     @Autowired
-    public ProductService(HibernateRepository repository, ProductValidationService productValidationService) {
+    public ProductService(HibernateProductRepository repository, ProductValidationService productValidationService) {
         this.repository = repository;
         this.productValidationService = productValidationService;
     }
 
+    @Transactional
     public void createProduct(Product product) {
         productValidationService.validate(product);
-        repository.insert(product);
+        repository.save(product);
     }
 
     public Product findProductByID(long id) {
@@ -40,11 +44,39 @@ public class ProductService {
         return product;
     }
 
-    public void updateProduct(Product product){
+    @Transactional
+    public void updateProductById(Long id, Product updatedProduct) {
+        Product product = repository.findProductById(id);
+        if (product == null) {
+            throw new ProductValidationException("Product with ID " + id + " not exist!");
+        }
+
+        product.setName(updatedProduct.getName());
+        product.setPrice(updatedProduct.getPrice());
+        product.setCategory(updatedProduct.getCategory());
+        product.setDiscount(updatedProduct.getDiscount());
+        product.setDescription(updatedProduct.getDescription());
+
         repository.update(product);
     }
 
-    public void deleteProduct(Product product){
+    public void deleteProductById(Long id) {
+        Product product = repository.findProductById(id);
+        if (product == null) {
+            throw new ProductValidationException("Product with" + id + " not exist!");
+        }
         repository.delete(product);
+    }
+
+    public void deleteProductByName(String name) {
+        Product product = repository.findProductByName(name);
+        if (product == null) {
+            throw new ProductValidationException("Product " + name + " not exist!");
+        }
+        repository.delete(product);
+    }
+
+    public List<Product> findAllProducts() {
+        return repository.findAllProducts();
     }
 }
