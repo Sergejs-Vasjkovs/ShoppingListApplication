@@ -1,23 +1,23 @@
-CREATE SCHEMA IF NOT EXISTS Warehouse DEFAULT CHARACTER SET utf8;
+CREATE SCHEMA IF NOT EXISTS warehouse DEFAULT CHARACTER SET utf8;
 
-USE Warehouse;
+USE warehouse;
 
-create table if not exists User (
+create table if not exists user (
     id              bigint not null auto_incremen,
-    Name            varchar(100) not null
+    name            varchar(100) not null
     primary key (id)
 );
 
-CREATE TABLE IF NOT EXISTS Products (
+CREATE TABLE IF NOT EXISTS products (
     id              bigint not null auto_increment,
     user_id         bigint,
-    Name            varchar(100) not null,
-    Price           decimal(19,2) not null,
-    Category        varchar(50),
-    Discount        float not null,
-    Description     varchar(300) not null,
-    Created         timestamp default current_timestamp(),
+    name            varchar(100) not null,
+    price           decimal(19,2) not null,
+    category        varchar(50),
+    discount        float not null,
+    description     varchar(300) not null,
+    created         timestamp default current_timestamp(),
     primary key (id),
-    foreign key (user_id) references User (id)
+    foreign key (user_id) references user (id)
 )
     auto_increment = 1;

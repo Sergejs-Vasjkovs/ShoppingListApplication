@@ -19,8 +19,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/id/{id}")
-    public ProductDTO findProductById(@PathVariable Long id) {
+    @GetMapping("/id")
+    public ProductDTO findProductById(@RequestParam Long id) {
         Product product = productService.findProductByID(id);
         return productToDto(product);
     }

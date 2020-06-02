@@ -13,7 +13,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL)
