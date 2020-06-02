@@ -1,9 +1,9 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.database.HibernateRepository;
+import com.javaguru.shoppinglist.database.HibernateProductRepository;
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.service.validation.ProductValidationException;
-import com.javaguru.shoppinglist.service.validation.ProductValidationService;
+import com.javaguru.shoppinglist.service.validation.product.ProductValidationException;
+import com.javaguru.shoppinglist.service.validation.product.ProductValidationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 public class ProductServiceTest {
 
     @Mock
-    private HibernateRepository repository;
+    private HibernateProductRepository repository;
     @Mock
     private ProductValidationService productValidationService;
 
@@ -43,10 +43,10 @@ public class ProductServiceTest {
 
     @Test
     public void addProduct_whenProductOk_shouldInsertProduct() {
-        repository.insert(expectedProduct);
-        verify(repository, times(1)).insert(expectedProduct);
+        repository.save(expectedProduct);
+        verify(repository, times(1)).save(expectedProduct);
 
-        verify(repository).insert(productCaptor.capture());
+        verify(repository).save(productCaptor.capture());
         Product addedProduct = productCaptor.getValue();
         assertEquals(expectedProduct.getId(), addedProduct.getId());
 

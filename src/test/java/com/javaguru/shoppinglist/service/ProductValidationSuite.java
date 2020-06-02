@@ -1,6 +1,6 @@
 package com.javaguru.shoppinglist.service;
 
-import com.javaguru.shoppinglist.service.validation.*;
+import com.javaguru.shoppinglist.service.validation.product.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
